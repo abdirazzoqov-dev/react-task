@@ -5,14 +5,14 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   
+  resolve: {
+    // Alias 'mapbox-gl' to 'maplibre-gl' to satisfy react-map-gl's peer dependency
+    alias: {
+      'mapbox-gl': 'maplibre-gl',
+    },
+  },
+
   optimizeDeps: {
-    // @react-leaflet/core topilmaslik xatosini hal qilish uchun yakuniy konfiguratsiya
-    exclude: [
-        '@react-leaflet/core', 
-        'react-leaflet',
-        'leaflet',
-        'leaflet-draw',
-        'react-leaflet-draw'
-    ], 
+    exclude: [], 
   },
 });

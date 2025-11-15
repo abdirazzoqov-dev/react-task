@@ -1,7 +1,7 @@
 // src/pages/MapPage.tsx
 import React, { useState } from 'react';
 import Map, { NavigationControl, GeolocateControl } from 'react-map-gl';
-import { MapDrawControlComponent } from '../components/custom/MapDrawControl';
+import { MapDrawControlComponent } from './components/custom/MapDrawControl';
 import maplibregl from 'maplibre-gl';
 
 // O'rta Osiyo uchun standart koordinatalar
@@ -18,6 +18,7 @@ const MapComponent = (props: any) => {
     // Mapbox GL Draw ning Mapbox API ga ulanishini oldini olamiz
     const MapboxTokenBypass = {
         ...maplibregl,
+        // Mapbox GL Draw ning telemetriya yuborish urinishini o'chiradi
         setRTLTextPlugin: (url: string, callback: any) => { /* do nothing */ }, 
         // Tokensiz Stadia Maps serveriga yo'naltiramiz
         baseApiUrl: 'https://tiles.stadiamaps.com', 
@@ -39,34 +40,15 @@ export const MapPage: React.FC = () => {
       
       <MapComponent
         {...viewState}
-        style={{ 
-            width: '100%', 
-            height: '100%', 
-            borderRadius: '8px', 
-            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-            cursor: 'grab' // 👈 Kursor stilini qo'shamiz
-        }}
+        style={{ width: '100%', height: '100%', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)' }}
         onMove={evt => setViewState(evt.viewState)}
         mapStyle={MAP_STYLE_URL} 
         maxZoom={20}
         minZoom={0}
-        
-        // INTERAKTIVLIKNI MAJBURIY YOQISH
-        dragPan={true} 
-        scrollZoom={true} 
-        dragRotate={true}
       >
-        {/* Navigatsiya va joylashuv kontrollarini qo'shish */}
         <NavigationControl position="top-right" />
+        <GeolocateControl position="top-right" />
         
-        {/* GeolocateControl: Avtomatik kuzatishni o'chiramiz */}
-        <GeolocateControl 
-          position="top-right" 
-          showUserLocation={true} 
-          trackUserLocation={false} 
-        />
-        
-        {/* Polygon chizish uchun maxsus boshqaruv paneli */}
         <MapDrawControlComponent />
         
       </MapComponent>

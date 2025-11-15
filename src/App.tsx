@@ -4,9 +4,9 @@ import { Layout } from './components/common/Layout';
 import { UsersPage } from './pages/UsersPage'; 
 import { MapPage } from './pages/MapPage';
 
-// Leaflet CSS ni import qilishni unutmang!
-import 'leaflet/dist/leaflet.css'; 
-import 'leaflet-draw/dist/leaflet.draw.css'; 
+// MapLibre CSS va Mapbox GL Draw CSS ni import qilish
+import 'maplibre-gl/dist/maplibre-gl.css'; 
+import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 
 function App() {
   return (
