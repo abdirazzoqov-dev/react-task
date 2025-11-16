@@ -53,7 +53,7 @@ Bu React ilovasi interaktiv xaritada poligonlar chizish va ularni boshqarish uch
     yarn start
     ```
 
-    Shundan so'ng, ilova brauzeringizda http://localhost:3000 manzili orqali ochiladi.
+    Shundan so'ng, ilova brauzeringizda http://localhost:5173 manzili orqali ochiladi.
 
 ## Loyiha strukturasi
 
