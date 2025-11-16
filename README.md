@@ -1,73 +1,71 @@
-# React + TypeScript + Vite
+# Xaritada Poligonlar Chizish Ilovasi
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Bu React ilovasi interaktiv xaritada poligonlar chizish va ularni boshqarish uchun mo'ljallangan. Foydalanuvchilar xaritada hududlarni belgilashi, ularning maydonini ko'rishi, tahrirlashi va saqlashi mumkin. Loyiha `MapLibre GL` yordamida qurilgan bo'lib, toza kod va modullik tamoyillariga asoslanadi.
 
-Currently, two official plugins are available:
+## Asosiy imkoniyatlar
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Poligon chizish:** Xaritada sichqoncha yordamida hududlarni osonlik bilan belgilash.
+- **Maydonni hisoblash:** Chizilgan hudud maydoni avtomatik hisoblanib, gektarda ko'rsatiladi.
+- **Tahrirlash va o'chirish:** Mavjud poligon shaklini o'zgartirish yoki uni butunlay o'chirib tashlash.
+- **Qulay interfeys:** Boshqaruv tugmalari va ma'lumot oynalari xarita ustida joylashgan.
+- **Modulli arxitektura:** Chizish logikasi `useMapDraw` nomli custom hook'ga chiqarilgan. Bu kodni tushunishni va qo'llab-quvvatlashni osonlashtiradi.
 
-## React Compiler
+## Texnologiyalar stekasi
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Asosiy kutubxonalar:**
+  - **React:** Foydalanuvchi interfeysini yaratish uchun.
+  - **TypeScript:** Kodda turlarni aniqlash va xatoliklarning oldini olish uchun.
+- **Xarita bilan ishlash:**
+  - **MapLibre GL JS:** Ochiq kodli, yuqori unumdorlikka ega xaritalarni ko'rsatish kutubxonasi.
+  - **React Map GL:** React ilovalarida xaritalarni boshqarish uchun qulay vosita.
+  - **Mapbox GL Draw:** Xaritada interaktiv chizish funksiyalarini ta'minlash uchun.
+  - **Turf.js:** Geografik hisob-kitoblarni (masalan, maydonni hisoblash) amalga oshirish uchun.
+- **Stillashtirish:**
+  - **Tailwind CSS:** Komponentlar uchun tez va moslashuvchan uslublar yaratish.
+- **Marshrutizatsiya:**
+  - **React Router:** Ilova ichidagi sahifalar o'rtasida navigatsiyani boshqarish uchun.
 
-## Expanding the ESLint configuration
+## Loyihani ishga tushirish
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+1.  **Repozitoriyni yuklab oling va papkaga o'ting:**
+    ```bash
+    git clone <sizning-repozitoriy-havolangiz>
+    cd <loyiha-papkasi>
+    ```
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+2.  **Kerakli paketlarni o'rnating:**
+    Agar `npm` ishlatsangiz:
+    ```bash
+    npm install
+    ```
+    Agar `yarn` ishlatsangiz:
+    ```bash
+    yarn install
+    ```
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+3.  **Loyihani dev rejimida ishga tushiring:**
+    `npm` uchun:
+    ```bash
+    npm start
+    ```
+    `yarn` uchun:
+    ```bash
+    yarn start
+    ```
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+    Shundan so'ng, ilova brauzeringizda http://localhost:3000 manzili orqali ochiladi.
+
+## Loyiha strukturasi
+
+Kodning tuzilishi `feature-sliced design` metodologiyasiga o'xshash tarzda tashkil etilgan bo'lib, bu komponentlar va logikani ajratishga yordam beradi.
+
 ```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+src/
+├── components/
+│   ├── common/         # Umumiy, qayta ishlatiladigan komponentlar (masalan, Layout)
+│   └── custom/         # Maxsus komponentlar (masalan, MapDrawControl)
+├── data-config/        # Ma'lumotlar va server bilan ishlash logikasi (masalan, userService)
+├── pages/              # Ilova sahifalari (MapPage, UsersPage)
+├── App.tsx             # Asosiy ilova komponenti va marshrutlar
+└── index.tsx           # Ilovaning kirish nuqtasi
 ```
